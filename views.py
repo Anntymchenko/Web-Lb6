@@ -102,3 +102,24 @@ def registration_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration.html', {'form': form})
+
+from django.shortcuts import render
+from .models import Ad
+from .forms import SearchForm
+
+def search_ads(request):
+    ads = Ad.objects.all()
+    form = SearchForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        keywords = form.cleaned_data['keywords']
+        category = form.cleaned_data['category']
+        subcategory = form.cleaned_data['subcategory']
+        if keywords:
+            ads = ads.filter(title__icontains=keywords) | ads.filter(description__icontains=keywords)
+        if category:
+            ads = ads.filter(category=category)
+        if subcategory:
+            ads = ads.filter(subcategory=subcategory)
+    context = {'ads': ads, 'form': form}
+    return render(request, 'search.html', context)
+
