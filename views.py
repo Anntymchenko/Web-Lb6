@@ -67,3 +67,19 @@ def create_listing(request):
         if form.is_valid():
             listing = form.save(commit=False)
             listing
+            
+            from django.views.generic import ListView
+from .models import Category, Subcategory
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'categories.html'
+    context_object_name = 'categories'
+    queryset = Category.objects.all()
+
+class SubcategoryListView(ListView):
+    model = Subcategory
+    template_name = 'subcategories.html'
+    context_object_name = 'subcategories'
+    queryset = Subcategory.objects.all()
+
