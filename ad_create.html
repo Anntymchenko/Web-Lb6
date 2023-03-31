@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ad</title>
+</head>
+<body>
+    <h1>Create Ad</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" required><br><br>
+        <label for="description">Description:</label>
+        <textarea name="description" required></textarea><br><br>
+        <label for="price">Price:</label>
+        <input type="number" name="price" required><br><br>
+        <label for="category">Category:</label>
+        <select name="category">
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Create Ad">
+    </form>
+</body>
+</html>
