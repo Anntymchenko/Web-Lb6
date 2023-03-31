@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Search Ads</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    {% if ads %}
+        <h2>Results</h2>
+        <ul>
+        {% for ad in ads %}
+            <li><a href="{% url 'ad_detail' ad.id %}">{{ ad.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}
