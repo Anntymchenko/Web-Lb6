@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2>Реєстрація</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Ім'я користувача:</label>
+          <input type="text" name="username" id="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password1">Пароль:</label>
+          <input type="password" name="password1" id="password1" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password2">Підтвердження паролю:</label>
+          <input type="password" name="password2" id="password2" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Зареєструватись</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
