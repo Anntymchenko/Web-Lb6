@@ -19,3 +19,42 @@
     </ul>
   </div>
 {% endblock %}
+
+{% for category in categories %}
+  <h3>{{ category.name }}</h3>
+  <p>{{ category.description }}</p>
+  <ul>
+    {% for subcategory in category.subcategories.all %}
+      <li>{{ subcategory.name }} - {{ subcategory.description }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+<!-- Форма для додавання категорії -->
+<form method="POST" action="{% url 'add_category' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма для додавання підкатегорії -->
+<form method="POST" action="{% url 'add_subcategory' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма для редагування категорії -->
+<form method="POST" action="{% url 'edit_category' category.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Зберегти</button>
+</form>
+
+<!-- Форма для редагування підкатегорії -->
+<form method="POST" action="{% url 'edit_subcategory' subcategory.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Зберегти</button>
+</form>
+
