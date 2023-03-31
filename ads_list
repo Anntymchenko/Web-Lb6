@@ -1,0 +1,36 @@
+def ads_list(request):
+    ads = Ad.objects.all()
+
+    # отримання параметрів сортування з URL
+    sort_by = request.GET.get('sort_by', '')
+    category = request.GET.get('category', '')
+    subcategory = request.GET.get('subcategory', '')
+
+    # фільтрація списку оголошень за категорією
+    if category:
+        ads = ads.filter(category__name=category)
+
+    # фільтрація списку оголошень за підкатегорією
+    if subcategory:
+        ads = ads.filter(subcategory__name=subcategory)
+
+    # сортування списку оголошень
+    if sort_by == 'date':
+        ads = sort_by_date(ads)
+    elif sort_by == 'price_asc':
+        ads = sort_by_price_asc(ads)
+    elif sort_by == 'price_desc':
+        ads = sort_by_price_desc(ads)
+    elif sort_by == 'category':
+        ads = sort_by_category(ads)
+    elif sort_by == 'subcategory':
+        ads = sort_by_subcategory(ads)
+
+    context = {
+        'ads': ads,
+        'categories': Category.objects.all(),
+        'sort_by': sort_by,
+        'category': category,
+        'subcategory': subcategory,
+    }
+    return render(request, 'ads/ads_list.html', context)
