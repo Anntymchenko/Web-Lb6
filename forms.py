@@ -13,3 +13,10 @@ class ListingForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
         }
+ from django import forms
+from .models import Category, Subcategory
+
+class SearchForm(forms.Form):
+    keywords = forms.CharField(label='Keywords', max_length=100, required=False)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label='All Categories', required=False)
+    subcategory = forms.ModelChoiceField(queryset=Subcategory.objects.all(), empty_label='All Subcategories', required=False)
