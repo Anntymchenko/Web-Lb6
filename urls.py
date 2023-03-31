@@ -13,3 +13,12 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('category/<str:category>/', views.category, name='category'),
 ]
+
+from django.urls import path
+
+from .views import CategoryListView, SubcategoryListView
+
+urlpatterns = [
+    path('categories/', CategoryListView.as_view(), name='categories'),
+    path('subcategories/', SubcategoryListView.as_view(), name='subcategories'),
+]
