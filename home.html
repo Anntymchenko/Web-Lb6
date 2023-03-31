@@ -16,20 +16,20 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ad_create' %}">Створити оголошення</a>
+                        <a class="nav-link" href="{% url 'ad_create.html' %}">Створити оголошення</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_ads' %}">Мої оголошення</a>
+                        <a class="nav-link" href="{% url 'ads_list.html' %}">Мої оголошення</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Вийти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Увійти</a>
+                        <a class="nav-link" href="{% url 'login.html' %}">Увійти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Зареєструватися</a>
+                        <a class="nav-link" href="{% url 'registration.html' %}">Зареєструватися</a>
                     </li>
                 {% endif %}
             </ul>
