@@ -137,3 +137,17 @@ def sort_by_category(ads):
 
 def sort_by_subcategory(ads):
     return sorted(ads, key=lambda ad: ad.subcategory.name)
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Ad
+from .forms import AdForm
+
+@login_required
+def delete_ad(request, ad_id):
+    ad = get_object_or_404(Ad, pk=ad_id, user=request.user)
+    if request.method == 'POST':
+        ad.delete()
+        return redirect('ads_list')
+    return render(request, 'delete_ad.html', {'ad': ad})
+
