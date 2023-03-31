@@ -14,7 +14,7 @@
         <p>Category: {{ ad.category }}</p>
         {% if user.is_authenticated %}
           {% if ad.author == user %}
-            <a href="{% url 'edit_ad' ad.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'ad_edit.html' ad.id %}" class="btn btn-primary">Edit</a>
             <form action="{% url 'delete_ad' ad.id %}" method="post" style="display: inline;">
               {% csrf_token %}
               <button type="submit" class="btn btn-danger">Delete</button>
