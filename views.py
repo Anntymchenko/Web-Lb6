@@ -83,3 +83,22 @@ class SubcategoryListView(ListView):
     context_object_name = 'subcategories'
     queryset = Subcategory.objects.all()
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+
+def registration_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # автоматично авторизуємо користувача
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration.html', {'form': form})
