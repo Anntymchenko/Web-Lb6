@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h3>{{ ad.title }}</h3>
+      </div>
+      <div class="card-body">
+        <p>{{ ad.description }}</p>
+        <p>Price: {{ ad.price }}</p>
+        <p>Contact: {{ ad.contact_info }}</p>
+        <p>Category: {{ ad.category }}</p>
+        {% if user.is_authenticated %}
+          {% if ad.author == user %}
+            <a href="{% url 'edit_ad' ad.id %}" class="btn btn-primary">Edit</a>
+            <form action="{% url 'delete_ad' ad.id %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
