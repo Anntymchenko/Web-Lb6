@@ -123,3 +123,17 @@ def search_ads(request):
     context = {'ads': ads, 'form': form}
     return render(request, 'search.html', context)
 
+def sort_by_date(ads):
+    return sorted(ads, key=lambda ad: ad.date_created, reverse=True)
+
+def sort_by_price_asc(ads):
+    return sorted(ads, key=lambda ad: ad.price)
+
+def sort_by_price_desc(ads):
+    return sorted(ads, key=lambda ad: ad.price, reverse=True)
+
+def sort_by_category(ads):
+    return sorted(ads, key=lambda ad: ad.category.name)
+
+def sort_by_subcategory(ads):
+    return sorted(ads, key=lambda ad: ad.subcategory.name)
